@@ -22,16 +22,13 @@ function [force, P_in, P_out] = external_forces_patch(snake,B,I,X,Y)
    
    % Element-wise normalized probabilities
    p_in = f_in ./ (f_in+f_out);
-   p_out = f_out ./ (f_in+f_out);
+%    p_out = f_out ./ (f_in+f_out);
    
    % Handle probabilities f_in+f_out = 0
    p_in(isnan(p_in)) = 0.5;
-   p_out(isnan(p_out)) = 0.5;
+%    p_out(isnan(p_out)) = 0.5;
    
-   factor = sum(B,2);
-   factor(factor==0) = 1;
-   
-   P_in = B*p_in./factor;
+   P_in = B*p_in;
    P_out = 1- P_in; % B*p_out./sum(B,2);
    
    % Get the probability images
