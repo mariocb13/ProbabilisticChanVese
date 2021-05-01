@@ -27,7 +27,6 @@ B = get_biadjency_matrix_patch(patches, idx, A, 0:255, n_clusters);
 %%
 snake = make_circular_snake(centre, radius, n_points);
 
-subplot(1,2,1)
 imagesc(I), axis image, colormap gray
 hold on
 plot(snake([1:end,1],2), snake([1:end,1], 1), 'b', 'LineWidth', 2), drawnow;
@@ -47,13 +46,13 @@ P_out = zeros(size(I,1), size(I,2), n_iter);
 for i = 1:n_iter
    % Compute external forces
    [force, P_in(:,:,i), P_out(:,:,i)] = external_forces_patch(snake,B,I,X,Y);
+   
    % Get the normals and plot
    N = snake_normals(snake);
-%    if mod(i,5) == 0
-    plot_normals(snake, step_size*force.*N), title(i), drawnow;
-    subplot(1,2,2)
-    imagesc(P_in(:,:,i)), axis image, colorbar
-%    end
+   plot_normals(snake, step_size*force.*N), title(i);
+%    imagesc(P_in(:,:,i)), axis image; colorbar
+   drawnow;
+   
    % Apply the deformation
    snake = B_int*(snake+step_size*force.*N);
    snake = distribute_points(remove_intersections(snake));

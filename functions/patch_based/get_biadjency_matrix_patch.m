@@ -10,7 +10,7 @@ function B = get_biadjency_matrix_patch(patches, patches_clusters, A, I_range, n
 %       B: Biadjency matrix
 
 A_col= A(:);
-B_pix_cluster = double(A_col == (1:n_clusters)); % Matrix: N_pixels-by-N_clusters
+B_pix_cluster = double(A_col == (1:n_clusters));    % Matrix: N_pixels-by-N_clusters
 
 B_cluster_int = zeros(n_clusters,length(I_range)); % Matrix: N_clusters-by-N_intensities
 for i = 1:length(patches_clusters)                 % Represents the ocurrence of the intensities in the cluster
