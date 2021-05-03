@@ -11,8 +11,8 @@ snake = make_circular_snake(centre, radius, n_points);
 % Method parameters
 alpha = 0.1;
 beta = 0.3;
-step_size = 5;
-n_iter = 70;
+step_size = 3;
+n_iter = 150;
 
 % Plot the snake: The last 1 in the snake indexing it's to show the circle complete
 imagesc(I), axis image, colormap gray
@@ -51,3 +51,5 @@ title('Probability in image (Start)')
 subplot(1,3,3)
 imagesc(P_in(:,:,end)), axis image
 title('Probability in image (end)')
+
+
