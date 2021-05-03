@@ -1,36 +1,11 @@
-%% Load a real image (Guepard)
+%% Ex 4.1 Average the probabilities using multiple patch dimensions
 clear, clc
 
 I = imread('134052.jpg');
 I = double(I);
 
-size_im = [size(I,1), size(I,2)];
-
-% Get image patches
-patch_size = 11;
-patches = []; % Patches for all the pixels
-for i = 1:size(I,3)
-    [patches_ch, idx_patches] = get_image_patches(I(:,:,i), patch_size);
-    patches = cat(2, patches, patches_ch);
-end
-
-patches_s = select_patches(patches, idx_patches, size_im, patch_size, 'random', 30000); % Patches from selected pixels
-
-% Dictionary development
-n_clusters = 200; % To get a correct display, select a perfect square
-[~, centroids] = kmeans(patches_s./vecnorm(patches_s,1,2), n_clusters);
-% figure, display_dictionary(centroids, [10, 10], 1); drawnow
-
-% Assign to every pixel a cluster
-[~, idx] = pdist2(centroids, patches./vecnorm(patches,1,2), 'euclidean', 'Smallest', 1);
-
-% Get the Assignment image
-A = zeros(size_im);
-A(idx_patches) = idx;
-figure, imagesc(A); axis image
-drawnow
-
-B = get_biadjency_matrix_patch(patches, idx, A, 0:255, n_clusters);
+B3 = get_biadjency_matrix_all(I, 5); 
+B5 = get_biadjency_matrix_all(I, 11); 
 
 %% Start the method:
 % Regularization
@@ -60,7 +35,7 @@ B_int = regularization_matrix(n_points, alpha, beta);
 
 for i = 1:n_iter
    % Compute external forces
-   [force, P_in(:,:,i), P_out(:,:,i)] = external_forces_patch(snake,B,I,X,Y);
+   [force, P_in(:,:,i), P_out(:,:,i)] = external_forces_patch_combined(snake,B3,B5,I,X,Y);
    
    % Get the normals and plot
    N = snake_normals(snake);
@@ -86,3 +61,36 @@ title('Probability in image (Start)')
 subplot(1,3,3)
 imagesc(P_in(:,:,end)), axis image, colormap default
 title('Probability in image (end)')
+
+
+%% AUXILIARY FUNCTION %%
+
+function B = get_biadjency_matrix_all(I, patch_size)
+
+    size_im = [size(I,1), size(I,2)];
+    
+    % Get image patches
+    patches = []; % Patches for all the pixels
+    for i = 1:size(I,3)
+        [patches_ch, idx_patches] = get_image_patches(I(:,:,i), patch_size);
+        patches = cat(2, patches, patches_ch);
+    end
+
+    patches_s = select_patches(patches, idx_patches, size_im, patch_size, 'random', 30000); % Patches from selected pixels
+
+    % Dictionary development
+    n_clusters = 200; % To get a correct display, select a perfect square
+    [~, centroids] = kmeans(patches_s./vecnorm(patches_s,1,2), n_clusters);
+    % figure, display_dictionary(centroids, [10, 10], 1); drawnow
+
+    % Assign to every pixel a cluster
+    [~, idx] = pdist2(centroids, patches./vecnorm(patches,1,2), 'euclidean', 'Smallest', 1);
+
+    % Get the Assignment image
+    A = zeros(size_im);
+    A(idx_patches) = idx;
+    figure, imagesc(A); axis image
+    drawnow
+
+    B = get_biadjency_matrix_patch(patches, idx, A, 0:255, n_clusters);
+end

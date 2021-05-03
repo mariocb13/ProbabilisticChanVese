@@ -17,7 +17,11 @@ ex13 % Two similar distributions
 
 %% Ex2: Patched-based probabilities - Using all patches
 ex21 % Two differentiated distributions
-ex22 % Natural image in RGB transformed to a single channel
-ex23 % Using the 3 channels in the dictionary
+ex22 % Natural image in RGB transformed to a single channel - Starfish
+ex23 % Using the 3 channels in the dictionary - Snow leopard
 
 %% Ex3: Patched-based probabilities - Using some patches
+ex31 % Snow leopard
+
+%% Ex4: Multi-patch approach
+ex41
