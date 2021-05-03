@@ -33,7 +33,7 @@ function [force, P_in, P_out] = external_forces_patch(snake,B,I,X,Y)
    
    % Get the probability images
    P_in = reshape(P_in,[size(I,1), size(I,2)]);
-%    P_in = imgaussfilt(P_in, 2);
+   P_in = imgaussfilt(P_in, 0.5);
 %    P_out = reshape(P_out,[size(I,1), size(I,2)]);
    P_out = 1 - P_in;
    

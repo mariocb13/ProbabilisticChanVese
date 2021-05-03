@@ -4,7 +4,7 @@ function plot_normals(snake, N)
     
    delete(findobj('type','Line','-or','type','Quiver'))
    hold on
-   quiver(snake(1:end,2), snake(1:end,1), N(:,2), N(:,1), 'b', 'LineWidth', 2);
-   plot(snake([1:end, 1],2), snake([1:end, 1],1), 'b'), drawnow;
+   quiver(snake(1:end,2), snake(1:end,1), N(:,2), N(:,1), 'b', 'LineWidth', 1);
+   plot(snake([1:end, 1],2), snake([1:end, 1],1), 'b', 'LineWidth', 2), drawnow;
 end
 
