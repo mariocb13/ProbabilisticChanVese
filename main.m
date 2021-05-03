@@ -15,5 +15,9 @@ ex11 % Two differentiated distributions
 ex12 % Two overlapping distributions
 ex13 % Two similar distributions
 
-%% Ex2: Patched-based probabilities
+%% Ex2: Patched-based probabilities - Using all patches
 ex21 % Two differentiated distributions
+ex22 % Natural image in RGB transformed to a single channel
+ex23 % Using the 3 channels in the dictionary
+
+%% Ex3: Patched-based probabilities - Using some patches

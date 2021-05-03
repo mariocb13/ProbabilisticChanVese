@@ -17,7 +17,7 @@ patch_size = 21;
 % Cluster image patches
 n_clusters = 169;
 [idx, centroids] = kmeans(patches, n_clusters);
-figure, display_dictionary(centroids, [13, 13]); drawnow
+figure, display_dictionary(centroids, [13, 13], 0); drawnow
 
 % Get the Assignment image
 A = zeros(size(I_selected));

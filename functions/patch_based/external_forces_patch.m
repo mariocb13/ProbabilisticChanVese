@@ -29,12 +29,18 @@ function [force, P_in, P_out] = external_forces_patch(snake,B,I,X,Y)
 %    p_out(isnan(p_out)) = 0.5;
    
    P_in = B*p_in;
-   P_out = 1- P_in; % B*p_out./sum(B,2);
+%    P_out = 1- P_in; % B*p_out./sum(B,2);
    
    % Get the probability images
-   P_in = reshape(P_in,size(I));
-   P_out = reshape(P_out,size(I));
+   P_in = reshape(P_in,[size(I,1), size(I,2)]);
+%    P_in = imgaussfilt(P_in, 2);
+%    P_out = reshape(P_out,[size(I,1), size(I,2)]);
+   P_out = 1 - P_in;
+   
+%    P_out = P_out + 1e-5;
+%    f = log(P_in./P_out);
    
    force = interp2(X,Y,P_in,snake(:,2),snake(:,1))-interp2(X,Y,P_out,snake(:,2),snake(:,1));
+%    force = interp2(X,Y,f,snake(:,2),snake(:,1));
 end
 
