@@ -4,15 +4,15 @@ clear, clc
 I = imread('164074.jpg');
 I = double(I);
 
-B3 = get_biadjency_matrix_all(I, 3); 
-B5 = get_biadjency_matrix_all(I, 5); 
+B3 = get_biadjency_matrix_all(I, 5); 
+B5 = get_biadjency_matrix_all(I, 13); 
 
 %% Start the method:
 % Regularization
-alpha = 15;
-beta = 1;
-step_size = 18;
-n_iter = 350;
+alpha = 5;
+beta = 20;
+step_size = 8;
+n_iter = 400;
 
 [X,Y] = meshgrid(1:size(I,2),1:size(I,1));
 P_in = zeros(size(I,1), size(I,2), n_iter);
@@ -22,9 +22,9 @@ figure
 imagesc(uint8(I)), axis image, colormap gray
 
 [centrex, centrey] = ginput(1);
-radius = 60;
+radius = 50;
 centre = ([centrex,centrey]);
-n_points = 600;
+n_points = 400;
 % centre = ([117,160]);
 snake = make_circular_snake(centre, radius, n_points);
 

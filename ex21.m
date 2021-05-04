@@ -28,9 +28,9 @@ B = get_biadjency_matrix_patch(patches, idx, A, 0:255, n_clusters);
 %% Start the method:
 % Regularization
 alpha = 2;
-beta = 1;
-step_size = 100;
-n_iter = 150;
+beta = 1.5;
+step_size = 50;
+n_iter = 300;
 B_int = regularization_matrix(n_points, alpha, beta);
 
 [X,Y] = meshgrid(1:size(I,2),1:size(I,1));
