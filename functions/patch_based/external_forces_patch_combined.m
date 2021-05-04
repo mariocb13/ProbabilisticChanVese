@@ -1,4 +1,4 @@
-function [force, P_in, P_out] = external_forces_patch_combined(snake,B1,B2,I,X,Y)
+function [force, P_in, P_out] = external_forces_patch_combined(snake,B1,B2,w1,w2,I,X,Y)
 %EXTERNAL_FORCES_PATCH Computes the external forces to evolve the curve.
 %   Averaging two probability images
 % Input:
@@ -9,10 +9,13 @@ function [force, P_in, P_out] = external_forces_patch_combined(snake,B1,B2,I,X,Y
 %   Y: Y grid coordinates
 % Output:
 %   force: External forces
-
+   
    P1_in = get_probability_image(snake,B1,I);
    P2_in = get_probability_image(snake,B2,I);
-   P_in = (P1_in + P2_in)./2;
+   
+   w1 = w1 / (w1+w2);
+   w2 = w2 / (w1+w2);
+   P_in = P1_in.*w1 + P2_in.*w2;
    
    P_in = imgaussfilt(P_in, 0.5);
    P_out = 1 - P_in;

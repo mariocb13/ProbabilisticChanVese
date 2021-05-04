@@ -12,7 +12,7 @@ snake = make_circular_snake(centre, radius, n_points);
 alpha = 3;
 beta = 1;
 step_size = 50;
-n_iter = 150;
+n_iter = 300;
 
 % Plot the snake: The last 1 in the snake indexing it's to show the circle complete
 imagesc(I), axis image, colormap gray

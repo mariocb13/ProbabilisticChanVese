@@ -1,18 +1,21 @@
 %% Ex 4.1 Average the probabilities using multiple patch dimensions
 clear, clc
+close all
 
 I = imread('134052.jpg');
 I = double(I);
 
-B3 = get_biadjency_matrix_all(I, 5); 
-B5 = get_biadjency_matrix_all(I, 11); 
-
+B1 = get_biadjency_matrix_all(I, 3); 
+B2 = get_biadjency_matrix_all(I, 7); 
+w1 = 0.3;
+w2 = 0.7;
 %% Start the method:
 % Regularization
-alpha = 1;
-beta = 0.75;
-step_size = 30;
-n_iter = 400;
+alpha = 3;
+beta = 0.5;
+
+step_size = 20;
+n_iter = 250;
 
 [X,Y] = meshgrid(1:size(I,2),1:size(I,1));
 P_in = zeros(size(I,1), size(I,2), n_iter);
@@ -21,10 +24,10 @@ P_out = zeros(size(I,1), size(I,2), n_iter);
 figure
 imagesc(uint8(I)), axis image, colormap gray
 
-[centrex, centrey] = ginput(1);
-radius = 60;
-centre = ([centrex,centrey]);
-n_points = 600;
+% [centrex, centrey] = ginput(1);
+% centre = ([centrex,centrey]);
+radius = 70;
+n_points = 1000;
 centre = ([117,160]);
 snake = make_circular_snake(centre, radius, n_points);
 
@@ -35,7 +38,7 @@ B_int = regularization_matrix(n_points, alpha, beta);
 
 for i = 1:n_iter
    % Compute external forces
-   [force, P_in(:,:,i), P_out(:,:,i)] = external_forces_patch_combined(snake,B3,B5,I,X,Y);
+   [force, P_in(:,:,i), P_out(:,:,i)] = external_forces_patch_combined(snake,B1,B2,w1,w2,I,X,Y);
    
    % Get the normals and plot
    N = snake_normals(snake);
@@ -62,7 +65,6 @@ subplot(1,3,3)
 imagesc(P_in(:,:,end)), axis image, colormap default
 title('Probability in image (end)')
 
-
 %% AUXILIARY FUNCTION %%
 
 function B = get_biadjency_matrix_all(I, patch_size)
@@ -76,10 +78,10 @@ function B = get_biadjency_matrix_all(I, patch_size)
         patches = cat(2, patches, patches_ch);
     end
 
-    patches_s = select_patches(patches, idx_patches, size_im, patch_size, 'random', 30000); % Patches from selected pixels
+    patches_s = select_patches(patches, idx_patches, size_im, patch_size, 'random', 20000); % Patches from selected pixels
 
     % Dictionary development
-    n_clusters = 200; % To get a correct display, select a perfect square
+    n_clusters = 300; % To get a correct display, select a perfect square
     [~, centroids] = kmeans(patches_s./vecnorm(patches_s,1,2), n_clusters);
     % figure, display_dictionary(centroids, [10, 10], 1); drawnow
 
