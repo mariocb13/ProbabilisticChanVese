@@ -1,7 +1,7 @@
 %% Load a real image (Guepard)
 clear, clc
 
-I = imread('134052.jpg');
+I = imread('textured_test.png');
 I = double(I);
 
 size_im = [size(I,1), size(I,2)];
@@ -46,11 +46,12 @@ P_out = zeros(size(I,1), size(I,2), n_iter);
 figure
 imagesc(uint8(I)), axis image, colormap gray
 
-[centrex, centrey] = ginput(1);
+% [centrex, centrey] = ginput(1);
 radius = 60;
-centre = ([centrex,centrey]);
+% centre = ([centrex,centrey]);
 n_points = 600;
-centre = ([117,160]);
+% centre = ([117,160]);
+centre = [210,210];
 snake = make_circular_snake(centre, radius, n_points);
 
 hold on

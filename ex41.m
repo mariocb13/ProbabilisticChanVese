@@ -7,15 +7,15 @@ I = double(I);
 
 B1 = get_biadjency_matrix_all(I, 3); 
 B2 = get_biadjency_matrix_all(I, 7); 
-w1 = 0.5;
-w2 = 0.5;
-
+w1 = 0.3;
+w2 = 0.7;
 %% Start the method:
 % Regularization
-alpha = 2;
-beta = 0.1;
-step_size = 15;
-n_iter = 400;
+alpha = 3;
+beta = 0.5;
+
+step_size = 20;
+n_iter = 250;
 
 [X,Y] = meshgrid(1:size(I,2),1:size(I,1));
 P_in = zeros(size(I,1), size(I,2), n_iter);
