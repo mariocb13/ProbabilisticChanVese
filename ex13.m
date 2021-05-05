@@ -3,7 +3,7 @@ I = imread('textured_test.png');
 I = double(I);
 
 % Initialize a snake 
-radius = 170;
+radius = 100;
 centre = [250 250];
 n_points = 240;
 snake = make_circular_snake(centre, radius, n_points);

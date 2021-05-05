@@ -3,8 +3,8 @@ I = imread('textured_test.png');
 I = double(I);
 
 % Snake
-radius = 170;
-centre = [210 210];
+radius = 100;
+centre = [250 250];
 n_points = 200;
 
 % Get image patches

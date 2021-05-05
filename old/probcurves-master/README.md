@@ -1,2 +1,0 @@
-# probcurves
-Probabilistic Chan-Vese
